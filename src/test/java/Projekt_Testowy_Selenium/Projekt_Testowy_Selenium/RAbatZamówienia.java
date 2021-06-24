@@ -15,9 +15,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import java.util.regex.Pattern.compile;
 
 public class RAbatZamówienia extends test3 {
+	
 //  dodawanie wycieczki do zamówienia oraz rabatu
 // rabat jest aktywny 
 
@@ -25,7 +25,7 @@ public class RAbatZamówienia extends test3 {
 	public WebDriver driver;
 
 	@Test
-	public <Calendar> void openMyBlog() throws UnsupportedEncodingException {
+	public <Calendar> void openMyBlog() {
 
 		
 		Otwieranie_strony();  // otwieranie strony
