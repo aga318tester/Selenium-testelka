@@ -57,7 +57,7 @@ public class test3 extends konto_lista_zam {
 	@After
 	public void afterClass() {
 		 driver.close();
-		// driver.quit();
+		 driver.quit();
 	}
 
 	protected void Przejscie_na_sklep(WebDriver driver) {

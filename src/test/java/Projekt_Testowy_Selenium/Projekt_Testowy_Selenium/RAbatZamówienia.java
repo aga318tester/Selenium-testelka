@@ -64,7 +64,7 @@ public class RAbatZamówienia extends test3 {
 
 		String kupon = driver.findElement(By.cssSelector("#order_review > table > tfoot > tr.cart-discount.coupon-kwotowy250 > td > span")).getText();
 
-		//ucinanie oznaczenia waluty z kwoty kuponu
+//ucinanie oznaczenia waluty z kwoty kuponu
 		kupon = kupon.substring(0, kupon.length() - 6);
 		System.out.println(kupon);
 
@@ -90,6 +90,10 @@ public class RAbatZamówienia extends test3 {
 		Assert.assertEquals(a.toString().trim() == ("Windsurfing – FakeStore").toString().trim(), false);
 
 		a = a.replaceAll("\\s+", "").trim();
+
+		// a= java.net.URLEncoder.encode(a, "UTF-8");
+		// String a1;
+		// a1 utf8EncodedString = new a(bytes, StandardCharsets.UTF_8);
 		String tekst_strona = "Windsurfing-FakeStore";
 
 	/*	if (a.contains(tekst_strona)) 
@@ -159,8 +163,7 @@ public class RAbatZamówienia extends test3 {
 		driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
 	}
 
-	public void Przejscie_na_sklep() 
-	{
+	public void Przejscie_na_sklep() {
 		// Przejście na sklep
 
 		driver.manage().timeouts().implicitlyWait(250, TimeUnit.SECONDS);
@@ -168,12 +171,13 @@ public class RAbatZamówienia extends test3 {
 		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
 	}
 
-	public void EdycjaIlosciWycieczek_zmniejszenie_kupon() 
-	{
+	public void EdycjaIlosciWycieczek_zmniejszenie_kupon() {
 		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).clear();
 		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).click();
 		driver.manage().timeouts().pageLoadTimeout(150, TimeUnit.SECONDS);
-		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).sendKeys("1"); 
+		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).sendKeys("1"); // Keys.TAB, Keys.TAB,
+																									// Keys.TAB,
+																									// Keys.ENTER);
 		driver.manage().timeouts().pageLoadTimeout(750, TimeUnit.SECONDS);
 		driver.findElement(By.name("coupon_code")).sendKeys("kwotowy250"); // , Keys.TAB, Keys.ENTER);
 		driver.manage().timeouts().pageLoadTimeout(150, TimeUnit.SECONDS);
