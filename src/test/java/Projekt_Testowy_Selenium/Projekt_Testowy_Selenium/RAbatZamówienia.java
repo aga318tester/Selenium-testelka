@@ -17,7 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.regex.Pattern.compile;
 
-public class RAbatZamówienia {
+public class RAbatZamówienia extends test3 {
 //  dodawanie wycieczki do zamówienia oraz rabatu
 // rabat jest aktywny 
 
