@@ -60,7 +60,7 @@ public class rozdzielczosc extends RAbatZamówienia
 	public <Calendar> void openMyBlog() {
 
 		// otwieranie strony
-		driver.manage().window().setSize(new Dimension(1200, 700));
+
 		Otwieranie_strony(driver);
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -175,7 +175,6 @@ public class rozdzielczosc extends RAbatZamówienia
 
 		System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver32.exe");
 		driver = new ChromeDriver();
-
 		driver.manage().deleteAllCookies();
 
 	}
