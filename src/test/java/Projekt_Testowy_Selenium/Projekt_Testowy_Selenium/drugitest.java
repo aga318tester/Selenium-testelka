@@ -115,5 +115,10 @@ public class drugitest {
 		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
 	}
 
+	public void Otwieranie_strony() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

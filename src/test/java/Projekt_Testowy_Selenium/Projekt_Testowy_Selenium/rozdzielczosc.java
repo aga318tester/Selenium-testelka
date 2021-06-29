@@ -55,7 +55,14 @@ public class rozdzielczosc extends RAbatZamówienia
 
 	// TakesScreenshot scrShot = ((TakesScreenshot)driver);
 	// File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+	@Before
+	public void beforeClass() {
 
+		System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver32.exe");
+		driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+
+	}
 	@Test
 	public <Calendar> void openMyBlog() {
 
@@ -84,11 +91,14 @@ public class rozdzielczosc extends RAbatZamówienia
 
 		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
 		js.executeScript("window.scrollBy(0,450)", "");
+		
 
 		super.PobieranieTytuluStrony(driver); // pobieranie tytułu
 
 	//	js.executeScript("window.scrollBy(0,450)", "");
 	//	super.ZamowienieWycieczki(driver);
+		
+		
 		// zamówienie wycieczki
 		
 		driver.findElement(By.cssSelector("#main > div:nth-child(2) > form > select ")).sendKeys(Keys.TAB, Keys.ENTER);
@@ -98,16 +108,22 @@ public class rozdzielczosc extends RAbatZamówienia
 		driver.findElement(By.name("add-to-cart")).click();
 		
 	//	super.ZamowienieWycieczki(driver);
+	//	ZamowienieWycieczki_rozdzielczosc();
+		
 
 		//
 		js.executeScript("window.scrollBy(0,450)", "");
 		driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
 		// #content > div > div.woocommerce > div > a
 
-		js.executeScript("window.scrollBy(0,450)", "");
-		driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
+		
+		
+		// możliwe, że po coś powtórzyółam tą linike
+	//	js.executeScript("window.scrollBy(0,450)", "");
+		// driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
 		
 
+		
 		EdycjaIlosciWycieczek_rozdzielczosc(); // edycja ilości wycieczek
 
 		js.executeScript("window.scrollBy(0,450)", "");
@@ -170,14 +186,7 @@ public class rozdzielczosc extends RAbatZamówienia
 	 * 
 	 */
 
-	@Before
-	public void beforeClass() {
-
-		System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver32.exe");
-		driver = new ChromeDriver();
-		driver.manage().deleteAllCookies();
-
-	}
+	
 
 	@After
 	public void afterClass() {
@@ -225,4 +234,7 @@ public class rozdzielczosc extends RAbatZamówienia
 		driver.navigate().to(" https://fakestore.testelka.pl/shop/");
 
 	}
-}
+	
+
+	}
+
