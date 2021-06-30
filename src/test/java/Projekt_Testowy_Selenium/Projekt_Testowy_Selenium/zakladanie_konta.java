@@ -17,11 +17,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class zakladanie_konta extends rozdzielczosc {
 	
-	// tworzone jest nowe konto a następnie jest ono kasowane
+//	private static final long Alert = 0;
+
+	// 1. tworzenie nowego konta, którego nie ma bazie
+	// 2. wylogowanie i ponowne zalogowanie na nowo utwworzone konto
+	// 3. usuwanie konta
 	
 
 	@Test
 	public <Calendar> void openMyBlog() {
+		
+		String user = "aaa@aaa.pl";
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,250)", "");
@@ -31,7 +37,7 @@ public class zakladanie_konta extends rozdzielczosc {
 		driver.manage().window().maximize();
 		PobieranieTytuluStrony(driver); // pobieranie tytułu
 		
-		String user = "aaa@aaa.pl";
+		
 		// uzupełnienie emeila i hasła
 		driver.findElement(By.id("reg_email")).click() ;
 		driver.findElement(By.id("reg_email")).sendKeys(user);
@@ -46,18 +52,14 @@ public class zakladanie_konta extends rozdzielczosc {
 		js.executeScript("window.scrollBy(0,650)", "");
 		driver.findElement(By.cssSelector("#customer_login > div.u-column2.col-2 > form > p:nth-child(4) > button")).click();
 	
-		//js.executeScript("window.scrollBy(0,200)", "");
-		//driver.findElement(By.cssSelector("#customer_login > div.u-column2.col-2 > form > p:nth-child(4) > button")).click();
-
-		wylogowywanie();
+		
+	wylogowywanie();
 		
 		
-		js.executeScript("window.scrollBy(0,200)", "");
-		logowanie(driver, user);
-		
-		driver.manage().timeouts().implicitlyWait(550, TimeUnit.SECONDS);
-	    kasowanie_konta();
-		driver.manage().timeouts().implicitlyWait(550, TimeUnit.SECONDS);
+	js.executeScript("window.scrollBy(0,200)", "");
+	logowanie(driver, user);
+	kasowanie_konta();
+	
 	}
 
 	@Before
@@ -72,23 +74,16 @@ public class zakladanie_konta extends rozdzielczosc {
 
 	@After
 	public void afterClass() {
-	//.close();
-	//	driver.quit();
+	driver.close();
+	driver.quit();
 
 	}
 
 	public void kasowanie_konta()  // kasowanie dopiero co utworzonego konta
 	{
-	//	driver.findElement(By.cssSelector("#post-8 > div > div > div > p:nth-child(4)")).sendKeys(Keys.TAB , Keys.TAB, Keys.TAB,  Keys.TAB, Keys.TAB, Keys.ENTER ,Keys.ENTER);
-		
-	//	driver.findElement(By.linkText("Delete Account")).click();
-		//*[@id="post-8"]/div/div/div/p[3]/a
-	//	driver.findElement(By.partialLinkText("Delete")).click();
-	// driver.findElement(By.xpath("href=\"/moje-konto/?plugin_delete_me=1399&amp;plugin_delete_me_nonce=c20ebe8edd\"")).click();
-	 driver.findElement(By.xpath("href=\"/moje-konto/?plugin_delete_me=1399&amp;plugin_delete_me_nonce=c20ebe8edd\"")).sendKeys(Keys.ENTER);
-		
-		
-	// 1d 	driver.findElement(By.xpath("/html/body/div/div[2]/div/div[2]/main/article/div/div/div/p[3]/a")).sendKeys(Keys.ENTER);
+
+		driver.findElement(By.linkText("Delete Account")).click();
+		driver.switchTo().alert().accept();
 		
 	}
 	
@@ -102,8 +97,9 @@ public class zakladanie_konta extends rozdzielczosc {
 	
 	public void wylogowywanie()
 	{
-		driver.findElement(By.linkText("Delete Account")).click();
 		
+		driver.findElement(By.cssSelector("#post-8 > div > div > nav > ul > li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--customer-logout > a")).click();
+
 	}
 }
 
