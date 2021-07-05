@@ -1,13 +1,11 @@
 language: java
-sudo: required
-dist: trusty
 mono: none
 branches:
 - only:
   - master
-  - slave
 script:
-- java build src
+- java build src/main
+- java build src/test
 notifications:
   email:
     recipients:
