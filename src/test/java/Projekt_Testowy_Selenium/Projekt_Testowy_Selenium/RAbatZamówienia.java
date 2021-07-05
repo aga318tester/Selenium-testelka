@@ -17,7 +17,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.regex.Pattern.compile;
 
-public class RAbatZamówienia {
+public class RAbatZamówienia extends test3 {
+	
 //  dodawanie wycieczki do zamówienia oraz rabatu
 // rabat jest aktywny 
 
@@ -25,26 +26,26 @@ public class RAbatZamówienia {
 	public WebDriver driver;
 
 	@Test
-	public <Calendar> void openMyBlog() throws UnsupportedEncodingException {
+	public <Calendar> void openMyBlog() {
 
 		
-		Otwieranie_strony();  // otwieranie strony
-		PobieranieTytuluStrony(); 	// pobieranie tytułu
-		logowanie();  	// logowanie
+		super.Otwieranie_strony(driver);  // otwieranie strony
+		super.PobieranieTytuluStrony(driver); 	// pobieranie tytułu
+		super.logowanie(driver);  	// logowanie
 
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS); 	// przejście na zamówienie
-		Przejscie_na_sklep();  // Przejście na sklep
+		super.Przejscie_na_sklep(driver);  // Przejście na sklep
 
 
 		// pobieranie tytułu strony do zmiennej
 
-		PobieranieTytuluStrony();
+		super.PobieranieTytuluStrony(driver);
 		String a;
 		a = driver.getTitle();
 		System.out.println(driver.getTitle());
 
 	
-		ZamowienieWycieczki(); 	// zamówienie wycieczki
+		super.ZamowienieWycieczki(driver); 	// zamówienie wycieczki
 		EdycjaIlosciWycieczek_zmniejszenie_kupon(); 	// edycja ilości wycieczek
 		
 
@@ -64,7 +65,7 @@ public class RAbatZamówienia {
 
 		String kupon = driver.findElement(By.cssSelector("#order_review > table > tfoot > tr.cart-discount.coupon-kwotowy250 > td > span")).getText();
 
-		//ucinanie oznaczenia waluty z kwoty kuponu
+//ucinanie oznaczenia waluty z kwoty kuponu
 		kupon = kupon.substring(0, kupon.length() - 6);
 		System.out.println(kupon);
 
@@ -90,6 +91,10 @@ public class RAbatZamówienia {
 		Assert.assertEquals(a.toString().trim() == ("Windsurfing – FakeStore").toString().trim(), false);
 
 		a = a.replaceAll("\\s+", "").trim();
+
+		// a= java.net.URLEncoder.encode(a, "UTF-8");
+		// String a1;
+		// a1 utf8EncodedString = new a(bytes, StandardCharsets.UTF_8);
 		String tekst_strona = "Windsurfing-FakeStore";
 
 	/*	if (a.contains(tekst_strona)) 
@@ -116,64 +121,20 @@ public class RAbatZamówienia {
 	@After
 	public void afterClass()
 	{
-		// driver.close();
+		 driver.close();
 		// driver.quit();
 	}
 
-	public void Otwieranie_strony()
-	{
-		// otwarcie strony
 
-		// driver.manage().window().setSize(new Dimension(1200, 700));
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.navigate().to(" https://fakestore.testelka.pl/moje-konto/");
-		driver.manage().window().maximize();
 
-	}
-
-	public void logowanie() 
-	{
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		driver.findElement(By.cssSelector("input[id='username']")).sendKeys("kasiafacebook1234 ");
-		driver.findElement(By.cssSelector("#password")).sendKeys("Biedronka123@");
-		driver.findElement(By.cssSelector("button[name='login']")).click();
-
-	}
-
-	public void PobieranieTytuluStrony() 
-	{
-		// pobieranie tytułu
-
-		driver.getTitle();
-		System.out.println(driver.getTitle());
-
-	}
-
-	public void ZamowienieWycieczki()
-	{
-		driver.findElement(By.cssSelector("#main > div:nth-child(2) > form > select ")).sendKeys(Keys.TAB, Keys.ENTER);
-		driver.manage().timeouts().pageLoadTimeout(150, TimeUnit.SECONDS);
-		driver.findElement(By.name("add-to-cart")).click();
-		driver.manage().timeouts().pageLoadTimeout(150, TimeUnit.SECONDS);
-		driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
-	}
-
-	public void Przejscie_na_sklep() 
-	{
-		// Przejście na sklep
-
-		driver.manage().timeouts().implicitlyWait(250, TimeUnit.SECONDS);
-		driver.navigate().to(" https://fakestore.testelka.pl/shop/");
-		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
-	}
-
-	public void EdycjaIlosciWycieczek_zmniejszenie_kupon() 
-	{
+	
+	public void EdycjaIlosciWycieczek_zmniejszenie_kupon() {
 		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).clear();
 		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).click();
 		driver.manage().timeouts().pageLoadTimeout(150, TimeUnit.SECONDS);
-		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).sendKeys("1"); 
+		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).sendKeys("1"); // Keys.TAB, Keys.TAB,
+																									// Keys.TAB,
+																									// Keys.ENTER);
 		driver.manage().timeouts().pageLoadTimeout(750, TimeUnit.SECONDS);
 		driver.findElement(By.name("coupon_code")).sendKeys("kwotowy250"); // , Keys.TAB, Keys.ENTER);
 		driver.manage().timeouts().pageLoadTimeout(150, TimeUnit.SECONDS);

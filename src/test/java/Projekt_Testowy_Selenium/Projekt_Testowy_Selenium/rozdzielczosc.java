@@ -34,7 +34,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.errorprone.annotations.FormatString;
-import org.apache.commons.io.FileUtils;
+// import org.apache.commons.io.FileUtils;
 
 import org.openqa.selenium.OutputType;
 import ru.yandex.qatools.ashot.AShot;
@@ -42,11 +42,12 @@ import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 // @SuppressWarnings("unused")
-public class rozdzielczosc {
+public class rozdzielczosc extends RAbatZamówienia 
+{
 
-	public interface FileUtils {
+//	public interface FileUtils {
 
-	}
+	//}
 
 //	private static final String FileUtils = null;
 
@@ -54,61 +55,80 @@ public class rozdzielczosc {
 
 	// TakesScreenshot scrShot = ((TakesScreenshot)driver);
 	// File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+	@Before
+	public void beforeClass() {
 
+		System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver32.exe");
+		driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+
+	}
 	@Test
-	public <Calendar> void openMyBlog() throws Exception {
+	public <Calendar> void openMyBlog() {
 
 		// otwieranie strony
 
-		Otwieranie_strony_rozdzielczosc();
+		Otwieranie_strony(driver);
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,250)", "");
 
 		// pobieranie tytułu
-
-		PobieranieTytuluStrony();
-
-		// logowanie
-
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		driver.findElement(By.cssSelector("input[id='username']")).sendKeys("kasiafacebook1234 ");
-		driver.findElement(By.cssSelector("#password")).sendKeys("Biedronka123@");
-
-		// przesówanie scrollem
+		
+		super.PobieranieTytuluStrony(driver);
 		js.executeScript("window.scrollBy(0,250)", "");
-		driver.findElement(By.cssSelector("button[name='login']")).click();
+		logowanie(driver);
+
 
 		// Przejście na sklep
+	//	js.executeScript("window.scrollBy(0,250)", "");
+	//	super.Przejscie_na_sklep(driver);
 		przejscie_sklep_rozdzielczość();
+		
 
 		js.executeScript("window.scrollBy(0,500)", "");
+		
+
 		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
 		js.executeScript("window.scrollBy(0,450)", "");
+		
 
-		PobieranieTytuluStrony(); // pobieranie tytułu
+		super.PobieranieTytuluStrony(driver); // pobieranie tytułu
 
+	//	js.executeScript("window.scrollBy(0,450)", "");
+	//	super.ZamowienieWycieczki(driver);
+		
+		
 		// zamówienie wycieczki
-		// ZamowienieWycieczki_rozdzielczosc()
+		
 		driver.findElement(By.cssSelector("#main > div:nth-child(2) > form > select ")).sendKeys(Keys.TAB, Keys.ENTER);
+
 		js.executeScript("window.scrollBy(0,450)", "");
 
 		driver.findElement(By.name("add-to-cart")).click();
+		
+	//	super.ZamowienieWycieczki(driver);
+	//	ZamowienieWycieczki_rozdzielczosc();
+		
 
 		//
 		js.executeScript("window.scrollBy(0,450)", "");
 		driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
 		// #content > div > div.woocommerce > div > a
 
-		js.executeScript("window.scrollBy(0,450)", "");
-		driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
+		
+		
+		// możliwe, że po coś powtórzyółam tą linike
+	//	js.executeScript("window.scrollBy(0,450)", "");
+		// driver.findElement(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a")).click();
+		
 
+		
 		EdycjaIlosciWycieczek_rozdzielczosc(); // edycja ilości wycieczek
 
 		js.executeScript("window.scrollBy(0,450)", "");
 
-		// driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).sendKeys(
-		// Keys.TAB,Keys.TAB, Keys.TAB, Keys.ENTER);
+//  // driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).sendKeys( Keys.TAB,Keys.TAB, Keys.TAB, Keys.ENTER);
 
 		js.executeScript("window.scrollBy(0,450)", "");
 
@@ -166,56 +186,42 @@ public class rozdzielczosc {
 	 * 
 	 */
 
-	@Before
-	public void beforeClass() {
-
-		System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver32.exe");
-		driver = new ChromeDriver();
-		driver.manage().deleteAllCookies();
-
-	}
+	
 
 	@After
 	public void afterClass() {
-		driver.close();
-		driver.quit();
+	driver.close();
+	driver.quit();
 	}
 
-	public void Otwieranie_strony_rozdzielczosc() {
+
+	protected void Otwieranie_strony(WebDriver driver) {
 		// otwarcie strony
 
-		driver.manage().window().setSize(new Dimension(1200, 700));
+		 driver.manage().window().setSize(new Dimension(1200, 700));
 		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.navigate().to(" https://fakestore.testelka.pl/moje-konto/");
-		// driver.manage().window().maximize();
+	//	driver.manage().window().maximize();
 
 	}
 
-	public void logowanie() {
+
+	public void ZamowienieWycieczki_rozdzielczosc() {
+		driver.findElement(By.cssSelector("#main > div:nth-child(2) > form > select ")).sendKeys(Keys.TAB, Keys.ENTER);
+
+		js.executeScript("window.scrollBy(0,450)", "");
+
+		driver.findElement(By.name("add-to-cart")).click();
+	}
+
+	protected void logowanie(WebDriver driver) {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.findElement(By.cssSelector("input[id='username']")).sendKeys("kasiafacebook1234 ");
 		driver.findElement(By.cssSelector("#password")).sendKeys("Biedronka123@");
-		driver.findElement(By.cssSelector("button[name='login']")).click();
+	//	driver.findElement(By.cssSelector("button[name='login']")).click();
 
 	}
-
-	public void PobieranieTytuluStrony() {
-		// pobieranie tytułu
-		driver.getTitle();
-		System.out.println(driver.getTitle());
-
-	}
-
-
-
-	public void Przejscie_na_sklep() {
-		// Przejście na sklep
-		driver.manage().timeouts().implicitlyWait(250, TimeUnit.SECONDS);
-		driver.navigate().to(" https://fakestore.testelka.pl/shop/");
-		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
-	}
-
 	public void EdycjaIlosciWycieczek_rozdzielczosc() {
 		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).clear();
 		driver.findElement(By.name("cart[39461a19e9eddfb385ea76b26521ea48][qty]")).click();
@@ -228,4 +234,7 @@ public class rozdzielczosc {
 		driver.navigate().to(" https://fakestore.testelka.pl/shop/");
 
 	}
-}
+	
+
+	}
+

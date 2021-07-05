@@ -28,7 +28,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import junit.framework.Assert;
 
-public class konto_lista_zam extends PierwszyTest{
+public class konto_lista_zam extends PierwszyTest {
 
 	// pobieranie listy z wycieczkami
 

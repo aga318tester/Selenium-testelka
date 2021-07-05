@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class test3 {
+public class test3 extends konto_lista_zam {
 
 	// usuwanie pozycji zamówienia
 
@@ -22,31 +22,18 @@ public class test3 {
 	@Test
 	public <Calendar> void openMyBlog() {
 
-		Otwieranie_strony();
+		super.Otwieranie_strony(driver);
+		super.PobieranieTytuluStrony(driver);
 
-		/*
-		 * // driver.manage().window().setSize(new Dimension(1200, 700));
-		 * driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-		 * driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		 * driver.navigate().to(" https://fakestore.testelka.pl/moje-konto/");
-		 * driver.manage().window().maximize();
-		 */
-
-		PobieranieTytuluStrony();
-
-		logowanie();
+		super.logowanie(driver);
 
 		// przejście na zamówienie
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 		// Przejście na sklep
-
-		driver.manage().timeouts().implicitlyWait(250, TimeUnit.SECONDS);
-		driver.navigate().to(" https://fakestore.testelka.pl/shop/");
-
-		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
-
-		PobieranieTytuluStrony();
+       super.Przejscie_na_sklep(driver);
+		super.PobieranieTytuluStrony(driver);
+		super.ZamowienieWycieczki(driver); // zamówienie wycieczki
 
 		driver.findElement(By.cssSelector(" #menu-item-200 > a")).click();
 
@@ -63,41 +50,22 @@ public class test3 {
 
 		System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver32.exe");
 		driver = new ChromeDriver();
-
 		driver.manage().deleteAllCookies();
 
 	}
 
 	@After
 	public void afterClass() {
-		// driver.close();
-		// driver.quit();
+		 driver.close();
+		 driver.quit();
 	}
 
-	public void Otwieranie_strony() {
-		// otwarcie strony
+	protected void Przejscie_na_sklep(WebDriver driver) {
+		// Przejście na sklep
 
-		// driver.manage().window().setSize(new Dimension(1200, 700));
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.navigate().to(" https://fakestore.testelka.pl/moje-konto/");
-		driver.manage().window().maximize();
-
+		driver.manage().timeouts().implicitlyWait(250, TimeUnit.SECONDS);
+		driver.navigate().to(" https://fakestore.testelka.pl/shop/");
+		driver.findElement(By.cssSelector("#main > ul > li:nth-child(1) > a > h2")).click();
 	}
-
-	public void PobieranieTytuluStrony() {
-		// pobieranie tytułu
-
-		driver.getTitle();
-		System.out.println(driver.getTitle());
-
-	}
-
-	public void logowanie() {
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		driver.findElement(By.cssSelector("input[id='username']")).sendKeys("kasiafacebook1234 ");
-		driver.findElement(By.cssSelector("#password")).sendKeys("Biedronka123@");
-		driver.findElement(By.cssSelector("button[name='login']")).click();
-
-	}
+	
 }
