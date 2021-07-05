@@ -5,8 +5,7 @@ mono: none
 branches:
 - only:
   - master
-before_script:
-- dotnet restore
+  - slave
 script:
 - java build src
 notifications:
