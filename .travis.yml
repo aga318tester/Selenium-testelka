@@ -1,16 +1,5 @@
 language: java
-mono: none
-branches:
-all_branches: true
-script:
-- java build src/main
-- java build src/test
-notifications:
-  email:
-    recipients:
-      - agusia031@wp.pl
-    on_success: always
-    on_failure: always
-  slack:
-    on_success: always
-    on_failure: always
+jdk:
+  - oraclejdk8
+
+script: ant build
