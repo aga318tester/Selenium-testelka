@@ -1,8 +1,7 @@
 language: java
 mono: none
 branches:
-- only:
-  - master
+all_branches: true
 script:
 - java build src/main
 - java build src/test
